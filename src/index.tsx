@@ -6,6 +6,7 @@ import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 
 const App = () => {
   const ref = useRef<any>();
+  const iframe = useRef<any>();
   const [input, setInput] = useState<string>('');
   const [code, setCode] = useState<string>('');
 
@@ -18,6 +19,7 @@ const App = () => {
 
   const onClick = async () => {
     if (ref.current) {
+      iframe.current.srcdoc = html;
       const result = await ref.current.build({
         entryPoints: ['index.js'],
         bundle: true,
@@ -28,13 +30,34 @@ const App = () => {
           global: 'window',
         },
       });
-      setCode(result.outputFiles[0].text);
+      // setCode(result.outputFiles[0].text);
+      iframe.current.contentWindow.postMessage(result.outputFiles[0].text, '*');
     }
   };
 
   useEffect(() => {
     startService();
   }, []);
+
+  const html = `
+    <html>
+      <head></head>
+      <body>
+        <div id="root"></div>
+        <script>
+          window.addEventListener('message', (event) => {
+            try {
+              eval(event.data);
+            } catch(err){
+              const root = document.querySelector('#root');
+              root.innerHTML = '<div style="color: red;"><h4>Runtime Error</h4>'+err+'</div>';
+              console.error(err);
+            }
+          }, false);
+        </script>
+      </body>
+    </html>
+  `;
 
   return (
     <div>
@@ -43,6 +66,12 @@ const App = () => {
         <button onClick={onClick}>Submit</button>
       </div>
       <pre>{code}</pre>
+      <iframe
+        title='preview'
+        ref={iframe}
+        sandbox='allow-scripts'
+        srcDoc={html}
+      />
     </div>
   );
 };
