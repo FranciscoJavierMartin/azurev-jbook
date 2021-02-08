@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react';
-import { ResizableBox, ResizableBoxProps } from 'react-resizable';
+import {
+  ResizableBox,
+  ResizableBoxProps,
+  ResizeCallbackData,
+} from 'react-resizable';
 import './resizable.css';
 
 interface IResizableProps {
@@ -9,6 +13,7 @@ interface IResizableProps {
 const Resizable: React.FC<IResizableProps> = ({ direction, children }) => {
   const [innerHeight, setInnerHeight] = useState<number>(window.innerWidth);
   const [innerWidth, setInnerWidth] = useState<number>(window.innerWidth);
+  const [width, setWidth] = useState<number>(window.innerWidth * 0.75);
 
   const resizableProps: ResizableBoxProps =
     direction === 'horizontal'
@@ -17,8 +22,14 @@ const Resizable: React.FC<IResizableProps> = ({ direction, children }) => {
           minConstraints: [innerWidth * 0.2, Infinity],
           maxConstraints: [innerWidth * 0.75, Infinity],
           height: Infinity,
-          width: innerWidth * 0.75,
+          width,
           resizeHandles: ['e'],
+          onResizeStop: (
+            e: React.SyntheticEvent<Element, Event>,
+            data: ResizeCallbackData
+          ) => {
+            setWidth(data.size.width);
+          },
         }
       : {
           minConstraints: [Infinity, 24],
@@ -37,6 +48,9 @@ const Resizable: React.FC<IResizableProps> = ({ direction, children }) => {
       timer = setTimeout(() => {
         setInnerHeight(window.innerHeight);
         setInnerWidth(window.innerWidth);
+        if (window.innerWidth * 0.75 < width) {
+          setWidth(window.innerWidth * 0.75);
+        }
       }, 100);
     };
 
@@ -45,7 +59,7 @@ const Resizable: React.FC<IResizableProps> = ({ direction, children }) => {
     return () => {
       window.removeEventListener('resize', listener);
     };
-  }, []);
+  }, [width]);
 
   return <ResizableBox {...resizableProps}>{children}</ResizableBox>;
 };
