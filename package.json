@@ -7,6 +7,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "@uiw/react-md-editor": "2.1.1",
     "axios": "^0.21.1",
     "bulmaswatch": "^0.8.1",
     "esbuild-wasm": "^0.8.34",
@@ -46,13 +47,13 @@
     ]
   },
   "devDependencies": {
-    "@types/react-resizable": "1.7.2",
     "@types/jest": "^26.0.15",
     "@types/jscodeshift": "0.7.2",
     "@types/node": "^12.0.0",
     "@types/prettier": "^2.2.0",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
+    "@types/react-resizable": "1.7.2",
     "typescript": "^4.0.3"
   }
 }
