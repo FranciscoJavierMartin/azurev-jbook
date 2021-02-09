@@ -1,18 +1,23 @@
 import { useEffect, useState } from 'react';
-
 import CodeEditor from './code-editor';
 import Preview from './preview';
 import bundler from '../bundler';
 import Resizable from './resizable';
+import { Cell } from '../state';
+import { useActions } from '../hooks/use-actions';
 
-const CodeCell: React.FC = () => {
-  const [input, setInput] = useState<string>('');
+interface ICodeCellProps {
+  cell: Cell;
+}
+
+const CodeCell: React.FC<ICodeCellProps> = ({ cell }) => {
   const [err, setErr] = useState<string>('');
   const [code, setCode] = useState<string>('');
+  const { updateCell } = useActions();
 
   useEffect(() => {
     const timer: NodeJS.Timeout = setTimeout(async () => {
-      const output = await bundler(input);
+      const output = await bundler(cell.content);
       setCode(output.code);
       setErr(output.err);
     }, 1000);
@@ -20,18 +25,18 @@ const CodeCell: React.FC = () => {
     return () => {
       clearTimeout(timer);
     };
-  }, [input]);
+  }, [cell.content]);
 
   return (
     <Resizable direction='vertical'>
       <div style={{ height: '100%', display: 'flex', flexDirection: 'row' }}>
         <Resizable direction='horizontal'>
           <CodeEditor
-            initialValue='const b = 1;'
-            onChange={(value: string) => setInput(value)}
+            initialValue={cell.content}
+            onChange={(value: string) => updateCell(cell.id, value)}
           />
         </Resizable>
-        <Preview code={code} err={err}/>
+        <Preview code={code} err={err} />
       </div>
     </Resizable>
   );
