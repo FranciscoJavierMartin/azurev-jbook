@@ -1,6 +1,8 @@
 import { Cell } from '../state/cell';
+import ActionBar from './action-bar';
 import CodeCell from './code-cell';
 import TextEditor from './text-editor';
+import './cell-list-item.css';
 
 interface ICellListItemProps {
   cell: Cell;
@@ -11,13 +13,26 @@ const CellListItem: React.FC<ICellListItemProps> = ({ cell }) => {
 
   switch (cell.type) {
     case 'code':
-      child = <CodeCell cell={cell} />;
+      child = (
+        <>
+          <div className='action-bar-wrapper'>
+            <ActionBar id={cell.id} />
+          </div>
+          <CodeCell cell={cell} />
+        </>
+      );
       break;
     case 'text':
-      child = <TextEditor cell={cell} />;
+      child = (
+        <>
+          <TextEditor cell={cell} />
+          <ActionBar id={cell.id} />
+        </>
+      );
       break;
   }
-  return <div>{child}</div>;
+
+  return <div className='cell-list-item'>{child}</div>;
 };
 
 export default CellListItem;
