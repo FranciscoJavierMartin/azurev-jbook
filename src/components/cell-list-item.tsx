@@ -14,7 +14,7 @@ const CellListItem: React.FC<ICellListItemProps> = ({ cell }) => {
       child = <CodeCell cell={cell} />;
       break;
     case 'text':
-      child = <TextEditor />;
+      child = <TextEditor cell={cell} />;
       break;
   }
   return <div>{child}</div>;
