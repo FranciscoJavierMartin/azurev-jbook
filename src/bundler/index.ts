@@ -1,4 +1,5 @@
 import * as esbuild from 'esbuild-wasm';
+import { BundleOutput } from '../state/bundle';
 import { fetchPlugin } from './plugins/fetch-plugin';
 import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 
@@ -6,7 +7,7 @@ let service: esbuild.Service;
 
 const bundle = async (
   rawCode: string
-): Promise<{ code: string; err: string }> => {
+): Promise<BundleOutput> => {
   if (!service) {
     service = await esbuild.startService({
       worker: true,
