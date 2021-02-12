@@ -11,14 +11,14 @@
     "dist"
   ],
   "dependencies": {
-    "azurev-jbook-local-client": "^0.1.0"
+    "azurev-jbook-local-client": "^1.0.0"
   },
   "devDependencies": {
     "@types/node": "^14.14.26",
-    "esbuild": "0.8.44",
-    "typescript": "^4.1.5",
     "azurev-jbook-local-api": "^1.0.0",
-    "commander": "^7.0.0"
+    "commander": "^7.0.0",
+    "esbuild": "0.8.44",
+    "typescript": "^4.1.5"
   },
   "scripts": {
     "start": "tsc --watch --preserveWatchOutput",
