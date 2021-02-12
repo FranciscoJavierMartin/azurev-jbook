@@ -1,6 +1,6 @@
 import path from 'path';
 import { Command } from 'commander';
-import { serve } from 'local-api';
+import { serve } from 'azurev-jbook-local-api';
 
 const isProduction: boolean = process.env.NODE_ENV === 'production';
 

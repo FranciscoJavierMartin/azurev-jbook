@@ -1,5 +1,5 @@
 {
-  "name": "local-api",
+  "name": "azurev-jbook-local-api",
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,6 +16,6 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "http-proxy-middleware": "^1.0.6",
-    "local-client": "^0.1.0"
+    "azurev-jbook-local-client": "^0.1.0"
   }
 }

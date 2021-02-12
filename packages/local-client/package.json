@@ -1,5 +1,5 @@
 {
-  "name": "local-client",
+  "name": "azurev-jbook-local-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -32,7 +32,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "serve": "node local-api.js"
+    "serve": "node azurev-jbook-local-api.js"
   },
   "eslintConfig": {
     "extends": [
