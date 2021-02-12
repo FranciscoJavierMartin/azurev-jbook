@@ -11,7 +11,7 @@
     "dist"
   ],
   "dependencies": {
-    "azurev-jbook-local-client": "^1.0.0"
+    "azurev-jbook-local-client": "1.0.1"
   },
   "devDependencies": {
     "@types/node": "^14.14.26",
