@@ -11,7 +11,7 @@ const bundle = async (
   if (!service) {
     service = await esbuild.startService({
       worker: true,
-      wasmURL: 'https://unpkg.com/esbuild-wasm@0.8.34/esbuild.wasm',
+      wasmURL: 'https://unpkg.com/esbuild-wasm@0.8.44/esbuild.wasm',
     });
   }
 
